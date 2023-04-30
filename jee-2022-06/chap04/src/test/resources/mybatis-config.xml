@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+    <mappers>
+        <!-- 1. Mapper 인터페이스 등록 -->
+        <mapper class="org.zerock.myapp.mapper.TimeMapper" />
+
+        <!-- 2. Mapper XML 파일 등록 -->
+        <mapper resource="mappers/SQL1Mapper.xml"/>
+    </mappers>
+</configuration>

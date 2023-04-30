@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:jsp="http://java.sun.com/xml/ns/javaee/jsp" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" version="4.0">
+
+  <display-name>servletjsp</display-name>
+
+  <session-config>
+    <session-timeout>30</session-timeout>
+  </session-config>
+
+  <!-- 예외처리 메카니즘 1번: HTTP 응답 코드(status code)에 따라 예외처리하기 -->
+  <!-- <error-page>
+    <error-code>500</error-code>
+    <location>/JSP/error/500.jsp</location>
+  </error-page> -->
+
+  <error-page>
+    <error-code>404</error-code>
+    <location>/JSP/error/404.jsp</location>
+  </error-page>
+
+  <error-page>
+    <error-code>501</error-code>
+    <location>/JSP/error/404.jsp</location>
+  </error-page>
+
+  <!-- 예외처리 메카니즘 2번: 웹컴포넌트에서 throw한 예외(fQCN)에 따라 예외처리하기 -->
+  <!-- <error-page>
+    <exception-type>java.lang.NullPointerException</exception-type>
+    <location>/JSP/error/null.jsp</location>
+  </error-page> -->
+
+  <context-param>
+    <param-name>driver</param-name>
+    <param-value>oracle.jdbc.OracleDriver</param-value>
+  </context-param>
+
+  <context-param>
+    <param-name>savePath</param-name>
+    <param-value>C:\uploadedFileStorage</param-value>
+  </context-param>
+
+  <listener>
+    <listener-class>org.zerock.myapp.ContextListenerImpl</listener-class>
+  </listener>
+
+  <servlet>
+    <servlet-name>InitParamServlet</servlet-name>
+    <servlet-class>org.zerock.myapp.InitParamServlet</servlet-class>
+
+    <init-param>
+      <description>1st. init parameter</description>
+      <param-name>dirPath</param-name>
+      <param-value>C:/temp</param-value>
+    </init-param>
+
+    <init-param>
+      <description>2nd. init parameter</description>
+      <param-name>userid</param-name>
+      <param-value>pyramide</param-value>
+    </init-param>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>InitParamServlet</servlet-name>
+    <url-pattern>/InitParam</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>config.jsp</servlet-name>
+    <jsp-file>/JSP/config.jsp</jsp-file>
+
+    <init-param>
+      <param-name>name</param-name>
+      <param-value>Yoseph</param-value>
+    </init-param>
+
+    <init-param>
+      <param-name>age</param-name>
+      <param-value>23</param-value>
+    </init-param>
+
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>config.jsp</servlet-name>
+    <url-pattern>/config.jsp</url-pattern>
+  </servlet-mapping>
+</web-app>

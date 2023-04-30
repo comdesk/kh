@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+		
+	<!-- Quartz Job Schedulilng Configuration -->
+
+	<!-- 1. To create a scheduling for the specified JobDetail -->
+	<bean id="testCronJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="name" value="testCronJobTrigger" />
+		<property name="group" value="GROUP1" />
+		<property name="description" value="Job Scheduling by cron for testCronJobDetail" />
+		<property name="jobDetail" ref="testCronJobDetail" />
+		<property name="cronExpression" value="* * * * * ?" />
+	</bean>
+
+	<!-- 2. To create a JobDetail for the specified trigger -->
+	<bean id="testCronJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="name" value="testCronJobDetail" />
+		<property name="group" value="GROUP1" />
+		
+		<property name="concurrent" value="false" />
+		<property name="targetObject" ref="boardService" />
+		<property name="targetMethod" value="testCronJob" />
+		
+	</bean>
+	
+	<bean id="testJobScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="testCronJobTrigger" />
+			</list>
+		</property>
+	</bean>
+	
+	
+	<context:component-scan base-package="org.zerock.myapp.service" />
+</beans>

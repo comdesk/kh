@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.zerock.myapp.mapper.BoardMapper">
+
+  <select id="select" resultType="org.zerock.myapp.domain.BoardVO">
+    SELECT *
+    FROM tbl_board2
+    WHERE bno = #{bno}
+  </select>
+
+  <delete id="delete">
+    DELETE FROM tbl_board2 WHERE bno = #{bno}
+  </delete>
+
+  <insert id="insert">
+    INSERT INTO tbl_board2 (title, content, writer) 
+    VALUES (#{title}, #{content}, #{writer})
+  </insert>
+
+  <update id="update">
+    UPDATE tbl_board2 
+    SET 
+      title = #{title}, 
+      content = #{content}, 
+      writer = #{writer},
+      update_ts = current_date
+    WHERE 
+      bno = #{bno}
+  </update>
+
+</mapper>
