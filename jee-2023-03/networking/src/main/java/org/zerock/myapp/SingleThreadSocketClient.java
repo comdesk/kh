@@ -34,7 +34,7 @@ public class SingleThreadSocketClient {
 		
 		//Step.3 지정된 IP주소와 포트번호로 Listen 하고 있는 서버로 연결 요청
 //		socket.connect(socketAddr);
-		socket.connect(socketAddr, timeout);
+		socket.connect(socketAddr, timeout);	//Blocking I/O
 		
 		log.info("3. socket after connected to the server: {}", socket);
 		
@@ -50,7 +50,7 @@ public class SingleThreadSocketClient {
 //		-------------------
 		
 		OutputStream os = socket.getOutputStream();
-		os.write(bytes); os.flush();
+		os.write(bytes); os.flush();		//Blocking I/O
 		
 		log.info(">>> Sent to Server.");
 		

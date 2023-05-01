@@ -41,7 +41,7 @@ public class SingleThreadSocketServer {
 			
 			//Step.3 만일 연결요청이 클라이언트로부터 들어오면 연결 수락
 			//		 연결생성(Connection)하고, 통신을 위한 Socket 객체 생성
-			@Cleanup Socket socket = serverSocket.accept();
+			@Cleanup Socket socket = serverSocket.accept();		//1. Blocking I/O
 			
 			log.info("3. Accept connection request ...");			
 			log.info("4. socket: {}", socket);
@@ -50,13 +50,13 @@ public class SingleThreadSocketServer {
 			InputStream is = socket.getInputStream();
 			
 			byte[] bytes = new byte[100];
-			int readBytes = is.read(bytes);
+			int readBytes = is.read(bytes);						//2. Blocking I/O
 			String message = new String(bytes, 0, readBytes, "utf8");
 			log.info("<<< Recv from Sever: {}", message);
 			
 //			--------------
-			OutputStream os = socket.getOutputStream();
-			os.write(bytes); os.flush();
+			OutputStream os = socket.getOutputStream();	
+			os.write(bytes); os.flush();						//3. Blocking I/O
 			log.info(">>> Sent to Server.");
 			
 //			--------------
