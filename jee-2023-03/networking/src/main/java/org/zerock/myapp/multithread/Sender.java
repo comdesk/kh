@@ -32,20 +32,31 @@ public class Sender extends Thread {
 			@Cleanup ObjectOutputStream oos = new ObjectOutputStream(os);
 			
 			//Step.2 송신할 Member 객체 생성
-			Member m = new Member();
-			m.setId(1);
-			m.setName("Yoseph");
-			m.setNickName("- PYRAMIDE");
-			m.setMessage("Hello from Clinet");
-			log.info("\t+ m: {}", m);
-			
-			//Step.3 생성한 Member 객체를 객체의 직렬화를 통해 서버로 전송
-			oos.writeObject(m); oos.flush();
-			
-			log.info("Done.");			
+			int i = 1;
+			while(true) {
+				Member m = new Member();
+				m.setId(i);
+				m.setName("Yoseph_" + i);
+				m.setNickName("PYRAMIDE");
+				m.setMessage("Hello from Clinet");
+				
+//				log.info("\t+[{}]. m: {}", i, m);
+				
+				//Step.3 생성한 Member 객체를 객체의 직렬화를 통해 서버로 전송
+				oos.writeObject(m); oos.flush();	//한 번씩 보낼 때마다 플러쉬 (여러 멤버 객체로 8kb 다 채울 때까지 기다리지 말고)
+				
+				try {
+					Thread.sleep(1000 * 3);
+				} catch (InterruptedException e) {
+					;;
+				}
+				
+				i++;
+			} //while
+		
 		} catch (IOException e) {
 			e.printStackTrace();
-		} finally {
+		} finally {	//Socket closed => 반대편도 Socket closed.
 			if(this.sock != null && !this.sock.isClosed()) {
 				try { this.sock.close(); } 
 				catch (IOException e) { ;; }

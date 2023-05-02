@@ -10,7 +10,7 @@ import javax.xml.stream.events.StartDocument;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
-public class MultiThreadSocketClient {
+public class MultiThreadSocketClient2 {
 
 	private static final String serverAddress = "localhost";
 	private static final int serverPort = 7777;
@@ -25,10 +25,10 @@ public class MultiThreadSocketClient {
 		log.info("\t+ Connected to server ... socket: {}", socket.getRemoteSocketAddress());
 		
 		//Step.2 서버로 메시지(객체)를 보내는 역할을 하는 스레드 생성/시작
-		(new Sender(socket, "ClientSender")).start();
+//		(new Sender(socket, "ClientSender")).start();
 		
 		//Step.3 서버로부터 오는 메세지(객체)를 수신하는 역할을 하는 스레드 생성/시작
-//		(new Receiver(socket, "ClientReceiver")).start();
+		(new Receiver(socket, "ClientReceiver")).start();
 		
 	} //main
 } //end class
