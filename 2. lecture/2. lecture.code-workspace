@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"name": "2. lecture",
+			"path": "."
+		}
+	],
+	"settings": {
+		"editor.fontFamily": "D2Coding, Consolas, 'Courier New', monospace",
+		"editor.fontSize": 16
+	}
+}
